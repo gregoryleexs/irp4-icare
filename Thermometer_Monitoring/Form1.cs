@@ -112,7 +112,7 @@ namespace Thermometer_Monitoring
         {
 
             pictureBox1.Hide();
-            string getmsg = $"http://localhost:1880/get?studentid={studentid}";
+            string getmsg = $"http://localhost:1880/get?studentid={studentid}"; //Assuming node-RED is running on a local instance. Change if node-RED is on a remote instance
             var httpresponse = await client.GetStringAsync(getmsg);
             if (httpresponse != null)
             {
