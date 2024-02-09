@@ -9,4 +9,4 @@ Make sure Visual Studio .NET desktop development package is installed, with Wind
 For the iCare wearable unit and the ESP32 MQTT smart relay's code, the following Arduino libraries are required.
 - PubSubClient (to allow the ESP32 to publish or subscribe to a topic)
 - ArduinoJSON (to send JSON codes to the backends (Node-RED or Ubidots)
-- WifiESP (for the ESP8266 on the Arduino IDE)
+- WiFiESP (for the ESP8266 on the Arduino IDE)
