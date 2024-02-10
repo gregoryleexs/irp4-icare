@@ -10,3 +10,6 @@ For the iCare wearable unit and the ESP32 MQTT smart relay's code, the following
 - PubSubClient (to allow the ESP32 to publish or subscribe to a topic)
 - ArduinoJSON (to send JSON codes to the backends (Node-RED or Ubidots)
 - WiFiESP (for the ESP8266 on the Arduino IDE)
+- Adafruit MLX90614 library (infrared temperature sensor)
+- Adafruit ADXL345 Accelerometer library
+- Adafruit DHT11 sensor library
