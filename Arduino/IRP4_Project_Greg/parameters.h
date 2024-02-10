@@ -14,8 +14,8 @@
 #define pushbutton_S2 A0  // counter board
 
 //Student information
-#define STUDENT_NAME "greg"
-#define STUDENT_ID "10239908G"
+#define STUDENT_NAME "<name>"
+#define STUDENT_ID "12345678a"
 #define CLASS_ID "PA11"
 #define GROUP_ID "Group 1"
 

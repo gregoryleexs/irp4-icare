@@ -68,7 +68,7 @@ void normalMode()
   //Serial.println(readUltrasonic());
   time = millis();
   
-  if ( checktime(2500) )
+  if ( checktime(2500) ) //check temperature every 2500
   {
     ambTemp = dht.readTemperature();
     Serial.println(ambTemp);
@@ -116,9 +116,9 @@ void normalMode()
   if (d <= 3 && d >= 2) 
   {
     float x = readThermometer();
-    if(x > 30)
+    if(x > 38)
     {
-      for(int i = 1; i < 6; i++)
+      for(int i = 1; i < 6; i++) //beep and blink screen if fever detected
       {
         beep(1);
         displayNumber(100);
@@ -127,6 +127,7 @@ void normalMode()
       }
       
     }
+    //Else, beep once.
     displayNumber(x);
     beep(1);
     postMessageToServer(x, fall, 0);
@@ -136,7 +137,7 @@ void normalMode()
     
   if(readPBs())
   {
-    for(int i = 0; i < 30; i++)
+    for(int i = 0; i < 30; i++) //press and hold both PBs for 3 seconds to call for help
     {
       if(!readPBs())
       {
@@ -152,7 +153,7 @@ void normalMode()
       }
     }
   }
-    if((readPushButton(A0)) == 1)
+    if((readPushButton(A0)) == 1) //toggle smart switch
     {
       button++;
       Serial.println("Triggered switch");
@@ -166,17 +167,7 @@ void normalMode()
   
 }
 
-void timerMode()
-{
-  int time = 99;
-  for(time; time > 0; time--)
-  {
-    displayNumber(time);
-    delay(500);
-  }
-  beep(20);
-  
-}
+
 
 bool readPBs(){
   if ( (readPushButton(9) == 1) && (readPushButton(A0) == 1) )
