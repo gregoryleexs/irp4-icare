@@ -1,0 +1,252 @@
+[
+    {
+        "id": "471e966a7f197f2e",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c96f406793d669a4",
+        "type": "http in",
+        "z": "471e966a7f197f2e",
+        "name": "/post",
+        "url": "/post",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 50,
+        "y": 180,
+        "wires": [
+            [
+                "0a9cb763814fa302"
+            ]
+        ]
+    },
+    {
+        "id": "0a9cb763814fa302",
+        "type": "json",
+        "z": "471e966a7f197f2e",
+        "name": "Convert JSON",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 240,
+        "y": 180,
+        "wires": [
+            [
+                "8b99ac84ca012766",
+                "310b75a5f2d16f22"
+            ]
+        ]
+    },
+    {
+        "id": "f5f1b624681ce9bb",
+        "type": "function",
+        "z": "471e966a7f197f2e",
+        "name": "Add TIme",
+        "func": "msg.payload.updateTime = new Date();\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 180,
+        "wires": [
+            [
+                "fc871a26f8d23b1c"
+            ]
+        ]
+    },
+    {
+        "id": "fc871a26f8d23b1c",
+        "type": "sqlstring-format",
+        "z": "471e966a7f197f2e",
+        "name": "SQL INSERT",
+        "query": "insert into sensors set ?",
+        "vars": "payload",
+        "outField": "topic",
+        "x": 930,
+        "y": 180,
+        "wires": [
+            [
+                "d4819a5360bf38c9"
+            ]
+        ]
+    },
+    {
+        "id": "d4819a5360bf38c9",
+        "type": "mysql",
+        "z": "471e966a7f197f2e",
+        "mydb": "2f95dde8061c90c3",
+        "name": "MySQL",
+        "x": 1160,
+        "y": 180,
+        "wires": [
+            [
+                "40cbc04da72422ae",
+                "06b6855a6b4cb341"
+            ]
+        ]
+    },
+    {
+        "id": "40cbc04da72422ae",
+        "type": "http response",
+        "z": "471e966a7f197f2e",
+        "name": "Successful",
+        "statusCode": "200",
+        "headers": {},
+        "x": 1370,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "06b6855a6b4cb341",
+        "type": "debug",
+        "z": "471e966a7f197f2e",
+        "name": "print",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1350,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "5ac2bfe5323e50dd",
+        "type": "function",
+        "z": "471e966a7f197f2e",
+        "name": "Error Handling",
+        "func": "msg.payload = msg.error;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 380,
+        "wires": [
+            [
+                "06b6855a6b4cb341",
+                "4d48f72a2efd1ced"
+            ]
+        ]
+    },
+    {
+        "id": "8c712b5b2e737bf9",
+        "type": "catch",
+        "z": "471e966a7f197f2e",
+        "name": "CATCH ALL",
+        "scope": null,
+        "uncaught": false,
+        "x": 250,
+        "y": 380,
+        "wires": [
+            [
+                "5ac2bfe5323e50dd"
+            ]
+        ]
+    },
+    {
+        "id": "c186f68b58c721f4",
+        "type": "http in",
+        "z": "471e966a7f197f2e",
+        "name": "/get",
+        "url": "/get",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 50,
+        "y": 280,
+        "wires": [
+            [
+                "94e7be636f32c49b"
+            ]
+        ]
+    },
+    {
+        "id": "94e7be636f32c49b",
+        "type": "sqlstring-format",
+        "z": "471e966a7f197f2e",
+        "name": "SQL Select",
+        "query": "select * from sensors where studentid = ? order by updatetime DESC LIMIT 5",
+        "vars": "payload.studentid",
+        "outField": "topic",
+        "x": 730,
+        "y": 280,
+        "wires": [
+            [
+                "d4819a5360bf38c9"
+            ]
+        ]
+    },
+    {
+        "id": "4d48f72a2efd1ced",
+        "type": "http response",
+        "z": "471e966a7f197f2e",
+        "name": "Failed",
+        "statusCode": "400",
+        "headers": {},
+        "x": 1350,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "310b75a5f2d16f22",
+        "type": "ubidots_out",
+        "z": "471e966a7f197f2e",
+        "name": "",
+        "token": "",
+        "label_device": "",
+        "device_label": "",
+        "tier": "business",
+        "tls_checkbox": true,
+        "x": 510,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "8b99ac84ca012766",
+        "type": "change",
+        "z": "471e966a7f197f2e",
+        "name": "delete msg.payload.Button",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payload.Button",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 180,
+        "wires": [
+            [
+                "f5f1b624681ce9bb"
+            ]
+        ]
+    },
+    {
+        "id": "2f95dde8061c90c3",
+        "type": "MySQLdatabase",
+        "name": "MYSQL",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "irp4",
+        "tz": "",
+        "charset": "UTF8"
+    }
+]
