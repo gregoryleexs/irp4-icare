@@ -13,3 +13,8 @@ For the iCare wearable unit and the ESP32 MQTT smart relay's code, the following
 - Adafruit MLX90614 library (infrared temperature sensor)
 - Adafruit ADXL345 Accelerometer library
 - Adafruit DHT11 sensor library
+### Node-RED
+The following nodes need to be installed:
+- MySQL nodes
+- sqlstring nodes
+- Ubidots nodes
